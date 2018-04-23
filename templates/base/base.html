@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %} Automatas de Pila {% endblock %}</title> 
+
+	{% block extrahead %}
+	{% endblock %}
+</head>
+<body>
+	{% block header %}
+		{% include 'base/sections/header.html' %}
+	{% endblock %}
+
+	{% block content %}
+		<h4>Soy el content</h4>
+
+	{% endblock %}
+
+	{% block footer %}
+		{% include 'base/sections/footer.html' %}
+	{% endblock %}
+	
+	{% block extrajs %}
+	{% endblock %}
+</body>
+</html>
