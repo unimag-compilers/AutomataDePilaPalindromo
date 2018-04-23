@@ -5,10 +5,14 @@
 	<meta charset="UTF-8">
 	<title>{% block title %} Automatas de Pila {% endblock %}</title> 
 
+	<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+	<script type="text/javascript" src="{% static 'js/fontawesome-all.js' %}"></script>
+
 	{% block extrahead %}
 	{% endblock %}
 </head>
 <body>
+
 	{% block header %}
 		{% include 'base/sections/header.html' %}
 	{% endblock %}
@@ -22,6 +26,9 @@
 		{% include 'base/sections/footer.html' %}
 	{% endblock %}
 	
+	<script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+
 	{% block extrajs %}
 	{% endblock %}
 </body>
