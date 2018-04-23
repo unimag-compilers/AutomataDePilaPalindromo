@@ -2,21 +2,21 @@
 	<nav>
 	    <div class="nav-wrapper teal">
 	      	<div class="container">
-	      		<a href="#" class="brand-logo truncate" style="margin-left: 20px;"><i class="fab fa-autoprefixer"></i>utomatas de Pila</a>
+	      		<a href="{% url 'automata:index' %}" class="brand-logo truncate" style="margin-left: 20px;"><i class="fab fa-autoprefixer"></i>utomatas de Pila</a>
 	      				
 				<a href="#" data-activates="mobile" class="button-collapse">
 					<i class="material-icons">menu</i>
 				</a>
 	      				
 	      		<ul class="right hide-on-med-and-down">
-		        	<li><a href="#!">Inicio</a></li>
-		        	<li><a href="#!">Autómata Impar</a></li>
-		        	<li><a href="#!">Autómata Par</a></li>
+		        	<li><a href="{% url 'automata:index' %}">Inicio</a></li>
+		        	<li><a href="{% url 'automata:impar' %}">Autómata Impar</a></li>
+		        	<li><a href="{% url 'automata:par' %}">Autómata Par</a></li>
 	      		</ul>
 	      		<ul class="side-nav" id="mobile">
-		        	<li><a href="#!">Inicio</a></li>
-		        	<li><a href="#!">Autómata Impar</a></li>
-		        	<li><a href="#!">Autómata Par</a></li>
+		        	<li><a href="{% url 'automata:index' %}">Inicio</a></li>
+		        	<li><a href="{% url 'automata:impar' %}">Autómata Impar</a></li>
+		        	<li><a href="{% url 'automata:par' %}">Autómata Par</a></li>
 	      				        
 	      		</ul>
 	      	</div>

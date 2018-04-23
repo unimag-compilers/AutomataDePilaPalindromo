@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+
+{% block title %} titulo {% endblock %}
+
+{% block content %}
+	
+	{% for a in automata %}
+		<div class="container">
+			<br>
+			<div class="row">
+				<div class="col s12 l8">
+					<h4>{{ a.name }}</h4>
+					<big>{{ a.description }}</big><br><br>
+					<form method='GET' action="">
+						<div class="col s8 m6">
+							<div class="input-field">
+								<!-- <i class="material-icons prefix">account_circle</i> -->
+								<input type="text" name="expression" id="expression"  data-length="20" maxlength="20">
+								<label for="expression">Expresión</label>
+							</div>
+						</div>
+						<div class="col s4 m2">
+							<div class="input-field">
+								<input type="submit" class="btn waves-effect waves-light" id="submit" value="Validar"></input>
+							</div>
+						</div>
+					</form>
+					
+				</div>
+				<div class="col s12 l4">	
+					<div class="card-panel z-depth-2 hoverable" style="padding: 5px;">
+						<center><big><b>Ejemplos</b></big></center>
+						<table class="highlight responsive-table centered">
+							<thead>
+								<th>Aceptadas</th>
+								<th>No aceadas</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>abcba</td>
+									<td>abcab</td>
+								</tr>
+								<tr>
+									<td>abbcbba</td>
+									<td>abbbba</td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		
+
+	{% empty %}	
+		<h4>Upps, No encontramos lo que buscabas :(</h4>
+
+	{% endfor %}
+
+
+{% endblock %}
+	
+{% block extrajs %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		    $('input#expresion').characterCounter();
+
+		});
+		
+	</script>
+{% endblock %}
