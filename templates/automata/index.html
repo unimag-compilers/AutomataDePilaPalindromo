@@ -1,5 +1,42 @@
 {% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block extrahead %}
+	<style>
+		.parallax-container {
+	      	height: 80vh;
+	    }
+	</style>
+{% endblock %}
 
 {% block content %}
-	contenido index <br><br>
+	<div class="parallax-container">
+    	<div class="parallax"><img src="{% static 'images/img01.jpg' %}" alt=""></div>
+  	</div>
+  	<div class="section white">
+    	<div class="row container">
+      		<h2 class="header">Autómatas de Pila</h2>
+      		<p class="grey-text text-darken-3 lighten-3 flow-text">Es un modelo matemático de un sistema que recibe una cadena constituida por símbolos de un alfabeto y determina si esa cadena pertenece al lenguaje que el autómata reconoce. El lenguaje que reconoce un autómata con pila pertenece al grupo de los lenguajes libres de contexto en la clasificación de la Jerarquía de Chomsky.</p>
+      		
+      		<h2 class="header">Ejemplos de Autómatas de Pila</h2>
+      		<img src="{% static 'images/imgAutomataImpar.jpg' %}" class="responsive-img" alt="">
+      		<div class="container right-align">
+      			<a href="#" class="btn waves-effect waves-light">Probar este automata</a>
+      		</div>
+			<br><br><hr><br>
+      		<img src="{% static 'images/imgAutomataPar.jpg' %}" class="responsive-img" alt="">
+      		<div class="container right-align"><a href="#" class="btn waves-effect waves-light">Probar este automata</a></div>
+
+    	</div>
+  	</div>
+{% endblock %}
+
+{% block extrajs %}
+	<script type="text/javascript">
+		$(function(){
+			$('.parallax').parallax();
+
+		});
+		
+	</script>
 {% endblock %}
