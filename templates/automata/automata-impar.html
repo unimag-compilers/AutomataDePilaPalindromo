@@ -40,12 +40,20 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>abcba</td>
-									<td>abcab</td>
+									<td>
+										abcba <a href="{% url 'automata:imparEvaluar' 'abcba' %}" class="right"><span class="new badge waves-effect" data-badge-caption="try"></span></a>
+									</td>
+									<td>
+										abcab <a href="{% url 'automata:imparEvaluar' 'abcab' %}" class="right"><span class="new badge waves-effect" data-badge-caption="try"></span></a>
+									</td>
 								</tr>
 								<tr>
-									<td>abbcbba</td>
-									<td>abbbba</td>
+									<td>
+										abbcbba <a href="{% url 'automata:imparEvaluar' 'abbcbba' %}" class="right"><span class="new badge waves-effect" data-badge-caption="try"></span></a>
+									</td>
+									<td>
+										abbbba <a href="{% url 'automata:imparEvaluar' 'abbbba' %}" class="right"><span class="new badge waves-effect" data-badge-caption="try"></span></a>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -159,10 +167,9 @@
 		    $('input#expresion').characterCounter();
 
 		    $('#submit').click(function(){
-		    	expression = $('#expression').val();
-		    	if (expression != ''){
-		    		alert(expression);
-		    		location.href = "expresision/"+expression;
+		    	input_expression = $('#expression').val();
+		    	if (input_expression != ''){
+		    		location.href = "{% url 'automata:imparEvaluar' 'abc' %}".replace(/abc/, input_expression);  
 		    	}else{
 		    		Materialize.toast('Debe ingresar una expresion!', 4000)
 		    	}

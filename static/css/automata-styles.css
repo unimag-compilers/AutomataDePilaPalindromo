@@ -6,6 +6,17 @@ span.letter {
 	font-size: 25px;
 	margin: 2px;
 }
+table  span.badge {
+	font-size: 17px !important;
+	margin: 0;
+	padding: 0;
+	border-radius: 20px !important; 
+	font-weight: 400 !important;
+}
+table span.badge:hover{
+	background-color: white !important;
+	color: teal !important;
+}
 
 div#resultado-automata {
 	font-size: 20px;
