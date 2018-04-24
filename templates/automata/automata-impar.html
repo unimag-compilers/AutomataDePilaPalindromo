@@ -13,7 +13,7 @@
 				<div class="col s12 l8">
 					<h4>{{ a.name }}</h4>
 					<big>{{ a.description }}</big><br><br>
-					<form method='GET' action="">
+					<!-- <form method='GET' action=""> -->
 						<div class="col s8 m6">
 							<div class="input-field">
 								<!-- <i class="material-icons prefix">account_circle</i> -->
@@ -23,10 +23,11 @@
 						</div>
 						<div class="col s4 m2">
 							<div class="input-field">
-								<input type="submit" class="btn waves-effect waves-light" id="submit" value="Validar"></input>
+								<!-- <input type="submit" class="btn waves-effect waves-light" id="submit" value="Validar"></input> -->
+								<button class="btn waves-effect waves-light" id="submit">Validar</button>
 							</div>
 						</div>
-					</form>
+					<!-- </form> -->
 					
 				</div>
 				<div class="col s12 l4">	
@@ -52,6 +53,17 @@
 					</div>
 				</div>
 			</div>
+		{% if expression %}
+			<div class="row">
+				<div class="col m12 l8">
+					<div class="card-panel center-align grey lighten-2" id="expression-panel">
+						{% for letter in expression %}
+							<span class="letter">{{ letter }}</span>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
 
 		<div class="row">
 			<div class="col s12 l8">				
@@ -142,6 +154,28 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    $('input#expresion').characterCounter();
+
+		    $('#submit').click(function(){
+		    	expression = $('#expression').val();
+		    	if (expression != ''){
+		    		alert(expression);
+		    		location.href = "expresision/"+expression;
+		    	}else{
+		    		Materialize.toast('Debe ingresar una expresion!', 4000)
+		    	}
+		    });
+
+		    {% if expression %}
+		    	var expression = '';
+			    {% for letter in expression %}
+			    	expression = expression +"{{letter}}";
+			    {% endfor %}
+
+			    $('#expression').val(expression);
+
+		    	Materialize.toast("Se evaluara la expresion \""+expression+"\"", 4000)
+		    {% endif %}
+
 		});
 		
 	</script>

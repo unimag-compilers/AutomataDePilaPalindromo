@@ -18,5 +18,10 @@ def automataImpar(request):
 	context = {"automata": aimpar}
 	return render(request, 'automata/automata-impar.html', context)
 
+def automataImparEvaluar(request, expression):
+	aimpar = Automata.objects.filter(id=1)
+	context = {"automata": aimpar, "expression": expression}
+	return render(request, 'automata/automata-impar.html', context)
+
 def automataPar(request):
 	return render(request, 'automata/automata-par.html')
