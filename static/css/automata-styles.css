@@ -7,6 +7,10 @@ span.letter {
 	margin: 2px;
 }
 
+div#resultado-automata {
+	font-size: 20px;
+}
+
 #grafoAutomata {
 	border: 2px dashed rgba(0,0,0,.3);
 	border-radius: 4px;

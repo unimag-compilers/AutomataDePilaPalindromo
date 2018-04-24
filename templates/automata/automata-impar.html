@@ -57,9 +57,12 @@
 			<div class="row">
 				<div class="col m12 l8">
 					<div class="card-panel center-align grey lighten-2" id="expression-panel">
-						{% for letter in expression %}
-							<span class="letter">{{ letter }}</span>
-						{% endfor %}
+						<div class="container">
+							{% for letter in expression %}
+								<span class="letter">{{ letter }}</span>
+							{% endfor %}
+						</div>
+						<div id="resultado-automata"></div>
 					</div>
 				</div>
 			</div>
@@ -141,7 +144,7 @@
 		<h4>Upps, No encontramos lo que buscabas :(</h4>
 
 	{% endfor %}
-
+	
 
 {% endblock %}
 
@@ -175,6 +178,17 @@
 
 		    	Materialize.toast("Se evaluara la expresion \""+expression+"\"", 4000)
 		    {% endif %}
+
+		    {% if result %}
+				$('#resultado-automata').text("Expresion Aceptada");
+				$('#resultado-automata').parent().addClass('teal-text');
+			{% else %}
+				$('#resultado-automata').text("Expresion No ceptada");
+				$('#resultado-automata').parent().addClass('red-text');
+					
+			{% endif%}
+
+
 
 		});
 		
