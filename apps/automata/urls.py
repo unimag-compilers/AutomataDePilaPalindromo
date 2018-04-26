@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^automata-impar/expresision/([a-c]{1,20})/$', automataImparEvaluar, name="imparEvaluar"),	
 
     url(r'^automata-par$', automataPar, name="par"),	
+    url(r'^automata-par/expresision/([a-b]{1,20})/$', automataParEvaluar, name="parEvaluar"),	
 ]

@@ -247,7 +247,7 @@
 
 					 	if ((c > 1) && (dataTable[c].letter !== dataTable[c-1].letter)){
 					 		$(dataTable[c-1].letter).removeClass(class_letter);
-					 		$(dataTable[c-1].letter).addClass('grey lighten-1');
+					 		$(dataTable[c-1].letter).addClass('grey-text');
 					 		$(dataTable[c].letter).addClass(class_letter);
 					 	}else{
 					 		$(dataTable[c].letter).addClass(class_letter);
@@ -281,7 +281,8 @@
 						 			$("#posicion-"+cpila).addClass('noShow');
 
 					 			}
-					 		}
+				 			}
+					 	
 					 	}else{
 					 		cpila ++;
 					 		$("#posicion-"+cpila).text(dataTable[c].stack[dataTable[c].stack.length-1])
