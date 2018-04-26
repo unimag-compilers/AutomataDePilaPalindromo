@@ -1,10 +1,19 @@
 #expression-panel {
 	padding: 10px;
+	min-height: 85px;
 }
 
-span.letter {
+.letter {
 	font-size: 25px;
-	margin: 2px;
+	padding: 6px;
+	display: inline-block;
+	border-radius: 50%;
+	line-height: 0.8;
+}
+div#resultado-automata {
+	font-size: 20px;
+	font-weight: 600;
+	color: white;
 }
 table  span.badge {
 	font-size: 17px !important;
@@ -18,9 +27,6 @@ table span.badge:hover{
 	color: teal !important;
 }
 
-div#resultado-automata {
-	font-size: 20px;
-}
 
 #grafoAutomata {
 	border: 2px dashed rgba(0,0,0,.3);
@@ -103,15 +109,15 @@ div#resultado-automata {
 	font-size: 18px;
 	position: absolute;
 	font-weight: 500;
-	line-height: 1;
+	line-height: 1.2;
 }
 #transition-text-1 {
 	top: 15px;
-	left: 28px;
+	left: 15px;
 }
 #transition-text-2 {
-	top: 160px;
-	left: 220px;
+	top: 162px;
+	left: 200px;
 }
 #transition-text-3 {
 	top: 75px;
@@ -173,4 +179,8 @@ div#resultado-automata {
 	font-size: 22px;
 	color: black;
 	font-weight: 600;
+}
+.transition-text > span {
+	border-radius: 50px;
+	padding: 0px 10px 0px 10px;
 }

@@ -64,20 +64,25 @@
 		{% if expression %}
 			<div class="row">
 				<div class="col m12 l8">
-					<div class="card-panel center-align grey lighten-2" id="expression-panel">
-						<div class="container">
+					<div class="card-panel center-align grey lighten-3" id="expression-panel">
+						<div class="row" style="margin-bottom: 0;">
 							{% for letter in expression %}
-								<span class="letter">{{ letter }}</span>
+								<div class="letter">{{ letter }}</div>
 							{% endfor %}
 						</div>
 						<div id="resultado-automata"></div>
+					</div>
+				</div>
+				<div class="col m12 l4">
+					<div class="card-panel center-align grey lighten-3">
+						<button class="btn btn-floating waves-effect waves-light blue pulse" id="play"><i class="material-icons">play_arrow</i></button>
 					</div>
 				</div>
 			</div>
 		{% endif %}
 
 		<div class="row">
-			<div class="col s12 l8">				
+			<div class="col s12 l8 waves-effect waves-teal">				
 				<div id="grafoAutomata">
 					<big id="titulo-grafo">Grafo del Autómata</big>
 					<!-- estados -->
@@ -100,33 +105,33 @@
 					<div class="transition-circle" id="transition-1"></div>
 					<i class="material-icons t-arrow" id="t1-arrow">arrow_drop_down</i>
 					<div class="transition-text" id="transition-text-1">
-						<span id="t1-r1">b, b / bb</span> <br>
-						<span id="t1-r2">a, b / ba</span> <br>
-						<span id="t1-r3">b, a / ab</span> <br>
-						<span id="t1-r4">a, a / aa</span> <br>
-						<span id="t1-r5">b, # / #b</span> <br>
-						<span id="t1-r6">a, # / #a</span>
+						<span id="b-b-bb">b, b / bb</span> <br>
+						<span id="a-b-ba">a, b / ba</span> <br>
+						<span id="b-a-ab">b, a / ab</span> <br>
+						<span id="a-a-aa">a, a / aa</span> <br>
+						<span id="b-N-Nb">b, # / #b</span> <br>
+						<span id="a-N-Na">a, # / #a</span>
 					</div>
 
 					<div class="transition-line" id="transition-2"></div>
 					<i class="material-icons t-arrow" id="t2-arrow">arrow_drop_down</i>
 					<div class="transition-text" id="transition-text-2">
-						<span id="t2-r1">c, # / # </span><br>
-						<span id="t2-r2">c, b / b</span> <br>
-						<span id="t2-r3">c, a / a </span>
+						<span id="c-N-N">c, # / #</span><br>
+						<span id="c-b-b">c, b / b</span> <br>
+						<span id="c-a-a">c, a / a </span>
 					</div>
 
 					<div class="transition-circle" id="transition-3"></div>
 					<i class="material-icons t-arrow" id="t3-arrow">arrow_drop_down</i>
 					<div class="transition-text" id="transition-text-3">
-						<span id="t3-r1">b, b / &lambda;</span> <br>
-						<span id="t3-r2">a, a / &lambda;</span>
+						<span id="b-b-L">b, b / &lambda;</span> <br>
+						<span id="a-a-L">a, a / &lambda;</span>
 					</div>
 
 					<div class="transition-line" id="transition-4"></div>
 					<i class="material-icons t-arrow" id="t4-arrow">arrow_drop_down</i>
 					<div class="transition-text" id="transition-text-4">
-						<span id="t4-r1">&lambda;, # / #</span>
+						<span id="L-N-N">&lambda;, # / #</span>
 					</div>
 				</div>		
 			</div>
@@ -153,6 +158,10 @@
 
 	{% endfor %}
 	
+	<div id="dataTable">
+		
+	</div>
+
 
 {% endblock %}
 
@@ -162,38 +171,138 @@
 
 	
 {% block extrajs %}
+	<!-- <script type="text/javascript" src="{% static 'js/scriptAutomata.js' %}"></script> -->
 	<script type="text/javascript">
 		$(document).ready(function() {
-		    $('input#expresion').characterCounter();
+		
+	   		$('input#expresion').characterCounter();
 
-		    $('#submit').click(function(){
-		    	input_expression = $('#expression').val();
-		    	if (input_expression != ''){
-		    		location.href = "{% url 'automata:imparEvaluar' 'abc' %}".replace(/abc/, input_expression);  
-		    	}else{
-		    		Materialize.toast('Debe ingresar una expresion!', 4000)
-		    	}
-		    });
+			$('#submit').click(function(){
+				input_expression = $('#expression').val();
+				if (input_expression != ''){
+					location.href = "{% url 'automata:imparEvaluar' 'abc' %}".replace(/abc/, input_expression);  
+				}else{
+					Materialize.toast('Debe ingresar una expresion!', 4000);
+				}
+			});
 
-		    {% if expression %}
-		    	var expression = '';
+			{% if expression %}
+				// Si se tiene una expresion se coloca en el input
+				var expression = '';
 			    {% for letter in expression %}
 			    	expression = expression +"{{letter}}";
 			    {% endfor %}
-
 			    $('#expression').val(expression);
+				
 
-		    	Materialize.toast("Se evaluara la expresion \""+expression+"\"", 4000)
-		    {% endif %}
+				// Asignacion de la ids para cada letra de la expresion
+		    	var span_letters = $('.letter').siblings();
+		    	for (var i=0; i<span_letters.length; i++){
+		    		$(span_letters[i]).attr('id','letter-'+(i+1));
+		    	}
 
-		    {% if result %}
-				$('#resultado-automata').text("Expresion Aceptada");
-				$('#resultado-automata').parent().addClass('teal-text');
-			{% else %}
-				$('#resultado-automata').text("Expresion No ceptada");
-				$('#resultado-automata').parent().addClass('red-text');
+
+			{% endif %}
+
+			{% if result %}
+
+				{% if result.dataTable %}
+					// convercion de la dataTable generada en la funcion validar a json
+					$('#dataTable').html("{{ result.dataTable }}");
+					str = $('#dataTable').text();
+					str = str.replace(/'/gi,'"');
+					str = str.replace(/_/gi,'-');
+					str = str.replace(/~/gi,'L');
+					str = str.replace(/#/gi,'N');
+					str = str.replace(/ID/gi,'#');
+					// console.log(str)
+					dataTable = JSON.parse(str);
+					console.log(dataTable);
+
+					$('#play').click(function(){
+						visualizarPasoAPaso();
+						$('#play').removeClass('pulse');
+						$('#play').addClass('disabled');
+						Materialize.toast("Se ha inciado la visualizacion paso a paso", 4000)
+					});
+				{% else %}
+					$('#play').click(function(){
+						Materialize.toast("Error: No se puede iniciar la visualizacion ", 4000)
+					});
+				{% endif%}
+
+				function visualizarPasoAPaso(){
+					var class_letter = "teal accent-3 pulse";
+					var class_state = "teal accent-3 pulse";
+					var class_rule = "teal accent-3 pulse";
+
+					var c = 1;
+					var interval = setInterval(function(){	
+
+					 	if ((c > 1) && (dataTable[c].letter !== dataTable[c-1].letter)){
+					 		$(dataTable[c-1].letter).removeClass(class_letter);
+					 		$(dataTable[c-1].letter).addClass('grey lighten-1');
+					 		$(dataTable[c].letter).addClass(class_letter);
+					 	}else{
+					 		$(dataTable[c].letter).addClass(class_letter);
+					 	}
+
+					 	if ((c > 1) && (dataTable[c].state !== dataTable[c-1].state)){
+					 		$(dataTable[c-1].state).removeClass(class_state);
+					 		$(dataTable[c].state).addClass(class_state);
+					 	}else{
+					 		$(dataTable[c].state).addClass(class_state);
+
+					 	}
+
+					 	if ((c > 1) && (dataTable[c].rule !== dataTable[c-1].rule)){
+					 		$(dataTable[c-1].rule).removeClass(class_rule);
+					 		$(dataTable[c].rule).addClass(class_rule);
+					 	}else{
+					 		$(dataTable[c].rule).addClass(class_rule);
+					 	}
+
+					    if (c === Object.keys(dataTable).length){
+							console.log("Fin de la ejecucion paso a paso");
+					    	clearInterval(interval);
+							var sw = false; 
+							var interval2 = setInterval(function(){	
+							    if (sw === false){
+							    	sw = true;
+									{% if result.isPalindrome %}
+										console.log("c vale ",c-1)
+										$(dataTable[c-1].rule).removeClass(class_rule);
+										$('#state-q').removeClass(class_state);
+										$('#state-r').addClass(class_state);
+
+										$('#resultado-automata').text("Expresión Aceptada");
+										var padre = $('#resultado-automata').parent();
+										$(padre).removeClass('grey lighten-3');
+										$(padre).addClass('teal accent-4');
+									{% else %}
+										$('#resultado-automata').text("Expresion No aceptada");
+										var padre = $('#resultado-automata').parent();
+										$(padre).removeClass('grey lighten-3');
+										$(padre).addClass('red lighten-1');
+									{% endif%}
+
+							    }else{
+									console.log("Fin de la ejecucion paso a paso 2");
+							    	clearInterval(interval2);
+							    }
+							}, 1000);
+					    }
+					    c++;	
+					}, 2000);
+
 					
+
+
+					
+				}
 			{% endif%}
+
+			
 
 
 

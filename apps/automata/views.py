@@ -21,6 +21,7 @@ def automataImpar(request):
 
 automata_pi = AutomataPalindromoImpar()
 
+
 def automataImparEvaluar(request, expression):
 	aimpar = Automata.objects.filter(id=1)
 
