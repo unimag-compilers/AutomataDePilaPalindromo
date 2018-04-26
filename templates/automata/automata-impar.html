@@ -17,7 +17,7 @@
 						<div class="col s8 m6">
 							<div class="input-field">
 								<!-- <i class="material-icons prefix">account_circle</i> -->
-								<input type="text" name="expression" id="expression"  data-length="20" maxlength="20" required>
+								<input type="text" name="expression" id="expression"  data-length="11" maxlength="11" required>
 								<label for="expression">Expresión</label>
 							</div>
 						</div>
@@ -136,13 +136,21 @@
 				</div>		
 			</div>
 			<div class="col s12 l4">
-				<div id="pilaAutomata" class="center-align">
-					<h5>Pila del Autómata</h5>
+				<div id="pilaAutomata" class="center-align" >
+					<big>Pila del Autómata</big>
 					<center>
 						<div id="borde-pila">
-							<div class="posicion" id="posicion-4"></div>
-							<div class="posicion" id="posicion-3"></div>
-							<div class="posicion" id="posicion-2"></div>
+							<div class="posicion noShow" id="posicion-12"></div>
+							<div class="posicion noShow" id="posicion-11"></div>
+							<div class="posicion noShow" id="posicion-10"></div>
+							<div class="posicion noShow" id="posicion-9"></div>
+							<div class="posicion noShow" id="posicion-8"></div>
+							<div class="posicion noShow" id="posicion-7"></div>
+							<div class="posicion noShow" id="posicion-6"></div>
+							<div class="posicion noShow" id="posicion-5"></div>
+							<div class="posicion noShow" id="posicion-4"></div>
+							<div class="posicion noShow" id="posicion-3"></div>
+							<div class="posicion noShow" id="posicion-2"></div>
 							<div class="posicion" id="posicion-1">#</div>
 						</div>
 					</center>
@@ -158,9 +166,7 @@
 
 	{% endfor %}
 	
-	<div id="dataTable">
-		
-	</div>
+	<div id="dataTable" class="hide"></div>
 
 
 {% endblock %}
@@ -236,7 +242,7 @@
 					var class_state = "teal accent-3 pulse";
 					var class_rule = "teal accent-3 pulse";
 
-					var c = 1;
+					var c = 1, cpila = 1;
 					var interval = setInterval(function(){	
 
 					 	if ((c > 1) && (dataTable[c].letter !== dataTable[c-1].letter)){
@@ -261,6 +267,27 @@
 					 	}else{
 					 		$(dataTable[c].rule).addClass(class_rule);
 					 	}
+					 	console.log('este tiene',dataTable[c].stack.length," elementos -1 "+dataTable[c].stack[dataTable[c].stack.length-1]);
+					 	if (c > 1) {
+					 		for (var i=0; i<dataTable[c].stack.length; i++){	
+					 			if (dataTable[c].stack[i] != 'L'){
+						 			$("#posicion-"+cpila).text(dataTable[c].stack[i]);
+						 			$("#posicion-"+cpila).removeClass('noShow');
+						 			if (i == 0) cpila++;
+					 			}else{
+					 				cpila --;
+					 				console.log("entre", cpila);
+					 				$("#posicion-"+cpila).text("");
+						 			$("#posicion-"+cpila).addClass('noShow');
+
+					 			}
+					 		}
+					 	}else{
+					 		cpila ++;
+					 		$("#posicion-"+cpila).text(dataTable[c].stack[dataTable[c].stack.length-1])
+					 		$("#posicion-"+cpila).removeClass('noShow');
+					 	}
+					 	
 
 					    if (c === Object.keys(dataTable).length){
 							console.log("Fin de la ejecucion paso a paso");
